@@ -1,1 +1,2743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mystery Invitation | The Secret Dress Code</title>
 
+<style>
+/* =========================================
+   1. GLOBAL DESIGN
+========================================= */
+
+:root {
+  --bg: #101016;
+  --bg-soft: #181821;
+  --panel: #20202a;
+  --panel-light: #292934;
+
+  --text: #f0edf7;
+  --muted: #a5a1b1;
+
+  --purple: #a99ad8;
+  --purple-dark: #70618f;
+  --purple-soft: #30283e;
+
+  --border: #393744;
+  --success: #8bc9a3;
+  --danger: #d98d97;
+
+  --shadow: 0 18px 60px rgba(0,0,0,.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(100, 80, 140, .18),
+      transparent 45%
+    ),
+    var(--bg);
+
+  color: var(--text);
+
+  font-family:
+    "Georgia",
+    "Times New Roman",
+    serif;
+
+  overflow-x: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 4px;
+}
+
+button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.app {
+  width: min(100%, 900px);
+  margin: 0 auto;
+  padding: 24px 18px 60px;
+}
+
+/* =========================================
+   2. HEADER
+========================================= */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding-bottom: 22px;
+  margin-bottom: 28px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid #514866;
+  border-radius: 12px;
+
+  background: var(--purple-soft);
+
+  color: var(--purple);
+
+  font-size: 21px;
+}
+
+.brand-title {
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.brand-subtitle {
+  margin-top: 4px;
+
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+
+  color: var(--muted);
+}
+
+.header-status {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+
+  color: var(--muted);
+}
+
+/* =========================================
+   3. SCREENS
+========================================= */
+
+.screen {
+  display: none;
+  animation: fadeIn .45s ease;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.eyebrow {
+  margin-bottom: 14px;
+
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  color: var(--purple);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: clamp(30px, 6vw, 52px);
+  line-height: 1.1;
+  font-weight: normal;
+  letter-spacing: -.8px;
+}
+
+h2 {
+  font-size: clamp(23px, 4vw, 34px);
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: normal;
+}
+
+p {
+  line-height: 1.7;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+.center {
+  text-align: center;
+}
+
+/* =========================================
+   4. BUTTONS
+========================================= */
+
+.btn {
+  min-height: 48px;
+
+  padding: 13px 20px;
+
+  border: 1px solid #6e5d8f;
+  border-radius: 9px;
+
+  background: var(--purple);
+  color: #17131f;
+
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: .3px;
+
+  transition:
+    transform .2s,
+    background .2s,
+    border-color .2s;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #c1b4e7;
+}
+
+.btn-secondary {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--panel-light);
+}
+
+.btn-wide {
+  width: 100%;
+}
+
+.btn-small {
+  min-height: 38px;
+  padding: 9px 14px;
+  font-size: 12px;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+/* =========================================
+   5. STORY INTRO
+========================================= */
+
+.story-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+
+  align-items: center;
+}
+
+.story-art {
+  position: relative;
+
+  min-height: 330px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #2d2638,
+      #17171f 72%
+    );
+
+  overflow: hidden;
+}
+
+.story-art::before,
+.story-art::after {
+  content: "";
+
+  position: absolute;
+
+  border: 1px solid rgba(169,154,216,.15);
+  border-radius: 50%;
+}
+
+.story-art::before {
+  width: 260px;
+  height: 260px;
+}
+
+.story-art::after {
+  width: 190px;
+  height: 190px;
+}
+
+.moon {
+  position: absolute;
+  top: 28px;
+  right: 35px;
+
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+
+  background: #e4dff0;
+
+  box-shadow:
+    0 0 30px rgba(169,154,216,.2);
+}
+
+.invitation {
+  position: relative;
+  z-index: 2;
+
+  width: 72%;
+  padding: 26px 20px;
+
+  border: 1px solid #7a6c91;
+
+  background:
+    linear-gradient(
+      145deg,
+      #35303e,
+      #201d29
+    );
+
+  box-shadow: var(--shadow);
+
+  transform: rotate(-4deg);
+
+  text-align: center;
+}
+
+.invitation::before {
+  content: "✦";
+
+  display: block;
+  margin-bottom: 12px;
+
+  color: var(--purple);
+  font-size: 24px;
+}
+
+.invitation-title {
+  font-size: 19px;
+  letter-spacing: 2px;
+}
+
+.invitation-line {
+  width: 70%;
+  height: 1px;
+
+  margin: 15px auto;
+
+  background: #75658e;
+}
+
+.invitation-text {
+  font-size: 10px;
+  letter-spacing: 1px;
+  line-height: 1.8;
+
+  color: #c6bfd5;
+}
+
+.story-copy {
+  padding: 10px 0;
+}
+
+.story-copy p {
+  color: #c2bdcd;
+  font-size: 14px;
+}
+
+.story-copy .mission {
+  margin-top: 22px;
+  padding: 14px;
+
+  border-left: 2px solid var(--purple);
+
+  background: rgba(169,154,216,.06);
+
+  color: var(--purple);
+  font-size: 12px;
+}
+
+/* =========================================
+   6. GAME SCREEN
+========================================= */
+
+.game-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-bottom: 24px;
+}
+
+.game-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+
+.progress-count {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: var(--purple);
+}
+
+.progress-track {
+  height: 4px;
+  width: 100%;
+
+  margin-top: 10px;
+
+  background: #292833;
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+
+  background: var(--purple);
+
+  transition: width .4s ease;
+}
+
+/* =========================================
+   7. PUZZLE BOARD
+========================================= */
+
+.puzzle-panel {
+  padding: 22px;
+
+  border: 1px solid var(--border);
+  border-radius: 16px;
+
+  background: var(--bg-soft);
+}
+
+.puzzle-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  margin-bottom: 18px;
+}
+
+.puzzle-heading h3 {
+  margin: 0;
+
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.puzzle-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+
+  width: min(100%, 510px);
+  margin: 0 auto;
+}
+
+.puzzle-piece {
+  position: relative;
+
+  aspect-ratio: 1 / 1;
+
+  border: 1px solid #484752;
+  border-radius: 6px;
+
+  background: #24242c;
+
+  overflow: hidden;
+}
+
+.puzzle-piece svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  filter: grayscale(1);
+  opacity: .65;
+
+  transition:
+    filter .8s ease,
+    opacity .8s ease;
+}
+
+.puzzle-piece.completed {
+  border-color: #8d83a7;
+}
+
+.puzzle-piece.completed svg {
+  opacity: 1;
+}
+
+.puzzle-piece.colored svg {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.piece-lock {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  background: rgba(10,10,15,.45);
+
+  color: #b3afbd;
+  font-size: 20px;
+
+  pointer-events: none;
+}
+
+.puzzle-piece.completed .piece-lock {
+  display: none;
+}
+
+.puzzle-caption {
+  margin-top: 15px;
+
+  text-align: center;
+
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 1px;
+
+  color: var(--muted);
+}
+
+/* =========================================
+   8. QUIZ
+========================================= */
+
+.quiz-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+
+  margin-top: 25px;
+}
+
+.quiz-card {
+  padding: 24px;
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  background: var(--panel);
+}
+
+.quiz-card h2 {
+  margin-bottom: 8px;
+}
+
+.quiz-card p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.quiz-step {
+  margin-bottom: 18px;
+
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+
+  color: var(--purple);
+}
+
+.question {
+  margin: 20px 0;
+
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+.expression {
+  margin: 20px 0;
+
+  font-size: clamp(27px, 5vw, 36px);
+  color: var(--purple);
+
+  overflow-wrap: anywhere;
+}
+
+.options {
+  display: grid;
+  gap: 9px;
+}
+
+.option {
+  width: 100%;
+
+  padding: 13px 14px;
+
+  border: 1px solid #41414d;
+  border-radius: 8px;
+
+  background: #252530;
+  color: var(--text);
+
+  text-align: left;
+
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+
+  transition:
+    border-color .2s,
+    background .2s;
+}
+
+.option:hover:not(:disabled) {
+  border-color: #83749e;
+  background: #302b3b;
+}
+
+.option.correct {
+  border-color: var(--success);
+  background: rgba(139,201,163,.12);
+}
+
+.option.wrong {
+  border-color: var(--danger);
+  background: rgba(217,141,151,.1);
+}
+
+.option:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.feedback {
+  display: none;
+
+  margin-top: 18px;
+  padding: 14px;
+
+  border-radius: 8px;
+
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.feedback.show {
+  display: block;
+}
+
+.feedback.success {
+  border: 1px solid rgba(139,201,163,.4);
+  background: rgba(139,201,163,.08);
+  color: var(--success);
+}
+
+.feedback.error {
+  border: 1px solid rgba(217,141,151,.4);
+  background: rgba(217,141,151,.08);
+  color: #e5a6ae;
+}
+
+.quiz-actions {
+  margin-top: 18px;
+}
+
+/* =========================================
+   9. FINAL REVEAL
+========================================= */
+
+.reveal-title {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.reveal-title p {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.reveal-board {
+  width: min(100%, 570px);
+  margin: 0 auto 28px;
+
+  padding: 12px;
+
+  border: 1px solid #655778;
+  border-radius: 15px;
+
+  background: #191820;
+
+  box-shadow: 0 0 40px rgba(169,154,216,.08);
+}
+
+.reveal-board .puzzle-piece {
+  border-color: #514a60;
+}
+
+.reveal-board .puzzle-piece svg {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.reveal-board .piece-lock {
+  display: none;
+}
+
+.reveal-board .puzzle-piece {
+  animation: colorReveal .8s ease both;
+}
+
+@keyframes colorReveal {
+  from {
+    filter: grayscale(1);
+    opacity: .5;
+  }
+
+  to {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+}
+
+.reveal-question {
+  width: min(100%, 570px);
+  margin: 0 auto;
+
+  padding: 24px;
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  background: var(--panel);
+}
+
+.reveal-question h2 {
+  font-size: 25px;
+}
+
+.color-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+
+  margin-top: 22px;
+}
+
+.color-option {
+  min-height: 52px;
+
+  border: 1px solid #41414d;
+  border-radius: 9px;
+
+  background: #262630;
+  color: var(--text);
+
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+
+  transition: .2s;
+}
+
+.color-option:hover:not(:disabled) {
+  border-color: var(--purple);
+  transform: translateY(-2px);
+}
+
+.color-option.correct {
+  border-color: var(--success);
+  background: rgba(139,201,163,.12);
+}
+
+.color-option.wrong {
+  border-color: var(--danger);
+  background: rgba(217,141,151,.1);
+}
+
+.color-option:disabled {
+  opacity: 1;
+}
+
+.color-dot {
+  display: inline-block;
+
+  width: 12px;
+  height: 12px;
+
+  margin-right: 8px;
+
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.color-dot.purple {
+  background: #a78bfa;
+}
+
+.color-dot.blue {
+  background: #60a5fa;
+}
+
+.color-dot.green {
+  background: #86efac;
+}
+
+.color-dot.yellow {
+  background: #facc15;
+}
+
+.final-feedback {
+  display: none;
+
+  margin-top: 18px;
+  padding: 16px;
+
+  border-radius: 9px;
+
+  text-align: center;
+
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.final-feedback.show {
+  display: block;
+}
+
+.final-feedback.success {
+  border: 1px solid rgba(139,201,163,.4);
+  background: rgba(139,201,163,.08);
+  color: var(--success);
+}
+
+.final-feedback.error {
+  border: 1px solid rgba(217,141,151,.4);
+  background: rgba(217,141,151,.08);
+  color: #e5a6ae;
+}
+
+/* =========================================
+   10. ENDING
+========================================= */
+
+.ending {
+  width: min(100%, 650px);
+  margin: 0 auto;
+
+  padding: 36px 25px;
+
+  border: 1px solid #625478;
+  border-radius: 18px;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      #342943,
+      #1a1922 70%
+    );
+
+  text-align: center;
+}
+
+.ending-symbol {
+  width: 76px;
+  height: 76px;
+
+  margin: 0 auto 22px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid #7f6c9f;
+  border-radius: 50%;
+
+  background: rgba(169,154,216,.08);
+
+  font-size: 35px;
+  color: var(--purple);
+}
+
+.ending h1 {
+  font-size: clamp(28px, 5vw, 42px);
+}
+
+.ending p {
+  color: #c6bfd5;
+  font-size: 14px;
+}
+
+.ending .ending-highlight {
+  margin: 24px 0;
+
+  color: var(--purple);
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+/* =========================================
+   11. RESET / FOOTER
+========================================= */
+
+.footer {
+  margin-top: 38px;
+  padding-top: 20px;
+
+  border-top: 1px solid var(--border);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.footer button {
+  padding: 6px 0;
+
+  border: none;
+  background: transparent;
+
+  color: var(--muted);
+
+  font-size: 10px;
+  text-decoration: underline;
+}
+
+/* =========================================
+   12. RESPONSIVE
+========================================= */
+
+@media (max-width: 700px) {
+
+  .app {
+    padding: 18px 14px 40px;
+  }
+
+  .story-layout,
+  .quiz-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .story-art {
+    min-height: 270px;
+  }
+
+  .story-copy {
+    padding-top: 0;
+  }
+
+  .quiz-card {
+    padding: 19px;
+  }
+
+  .puzzle-panel {
+    padding: 15px;
+  }
+
+  .header-status {
+    font-size: 9px;
+  }
+
+  .color-options {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .brand-title {
+    font-size: 13px;
+  }
+
+  .brand-subtitle {
+    font-size: 8px;
+  }
+
+  .color-options {
+    grid-template-columns: 1fr;
+  }
+
+  .puzzle-heading h3 {
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- =====================================
+       HEADER
+  ====================================== -->
+
+  <header class="header">
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        ✦
+      </div>
+
+      <div>
+        <div class="brand-title">
+          MYSTERY INVITATION
+        </div>
+
+        <div class="brand-subtitle">
+          THE SECRET DRESS CODE
+        </div>
+      </div>
+
+    </div>
+
+    <div class="header-status">
+      <span id="headerStatus">MISSION 01</span>
+    </div>
+
+  </header>
+
+
+  <!-- =====================================
+       SCREEN 1: STORY
+  ====================================== -->
+
+  <section class="screen active" id="storyScreen">
+
+    <div class="story-layout">
+
+      <div class="story-art">
+
+        <div class="moon"></div>
+
+        <div class="invitation">
+
+          <div class="invitation-title">
+            YOU'RE INVITED
+          </div>
+
+          <div class="invitation-line"></div>
+
+          <div class="invitation-text">
+            SCHOOL FESTIVAL<br>
+            A SECRET IS WAITING
+          </div>
+
+          <div class="invitation-line"></div>
+
+          <div class="invitation-text">
+            SIX PUZZLES<br>
+            ONE HIDDEN COLOR
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="story-copy">
+
+        <div class="eyebrow">
+          A MYSTERIOUS INVITATION
+        </div>
+
+        <h1>
+          Something<br>
+          Strange...
+        </h1>
+
+        <p>
+          A mysterious invitation has arrived at your school.
+        </p>
+
+        <p>
+          You are invited to the School Festival.
+          But there is a secret dress code.
+        </p>
+
+        <p>
+          The invitation contains six hidden puzzles.
+          Solve them all to reveal the secret color.
+        </p>
+
+        <div class="mission">
+
+          <strong>YOUR MISSION</strong>
+
+          <br><br>
+
+          Discover the secret dress code
+          and enter the festival.
+
+        </div>
+
+        <div class="btn-row">
+
+          <button
+            class="btn btn-wide"
+            id="startButton"
+          >
+            OPEN THE INVITATION →
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================
+       SCREEN 2: GAME
+  ====================================== -->
+
+  <section class="screen" id="gameScreen">
+
+    <div class="game-top">
+
+      <div style="flex:1">
+
+        <div class="game-label">
+          YOUR MISSION
+        </div>
+
+        <div class="progress-track">
+
+          <div
+            class="progress-fill"
+            id="progressFill"
+          ></div>
+
+        </div>
+
+      </div>
+
+      <div class="progress-count">
+
+        <span id="progressCount">0 / 6</span>
+
+      </div>
+
+    </div>
+
+
+    <!-- Puzzle board -->
+
+    <div class="puzzle-panel">
+
+      <div class="puzzle-heading">
+
+        <h3>
+          THE HIDDEN PICTURE
+        </h3>
+
+        <span class="small muted">
+          <span id="pieceCount">0</span>
+          PIECES FOUND
+        </span>
+
+      </div>
+
+      <div
+        class="puzzle-board"
+        id="puzzleBoard"
+      ></div>
+
+      <div class="puzzle-caption">
+
+        THE SECRET IS STILL HIDDEN...
+
+      </div>
+
+    </div>
+
+
+    <!-- Quiz -->
+
+    <div class="quiz-layout">
+
+      <div class="quiz-card">
+
+        <div class="quiz-step" id="quizStep">
+          PUZZLE 1 / 6
+        </div>
+
+        <div class="eyebrow">
+          EXPRESSION LEARNING
+        </div>
+
+        <h2 id="expressionTitle">
+          in charge of
+        </h2>
+
+        <p id="expressionDescription">
+          Learn the meaning of the expression.
+        </p>
+
+        <div class="quiz-step">
+          QUESTION 1 — MEANING
+        </div>
+
+        <div
+          class="question"
+          id="questionText"
+        >
+          What does this expression mean?
+        </div>
+
+        <div
+          class="options"
+          id="answerOptions"
+        ></div>
+
+        <div
+          class="feedback"
+          id="quizFeedback"
+          role="status"
+          aria-live="polite"
+        ></div>
+
+        <div class="quiz-actions">
+
+          <button
+            class="btn btn-wide"
+            id="nextButton"
+            disabled
+          >
+            CONTINUE
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="quiz-card">
+
+        <div class="eyebrow">
+          YOUR PROGRESS
+        </div>
+
+        <h3>
+          Six hidden pieces.
+        </h3>
+
+        <p>
+          Solve each expression puzzle to collect a piece
+          of the mysterious invitation.
+        </p>
+
+        <div style="margin-top:25px">
+
+          <div class="small muted">
+            PUZZLES COMPLETED
+          </div>
+
+          <div
+            style="
+              font-size:38px;
+              color:var(--purple);
+              margin-top:8px;
+            "
+            id="completedBig"
+          >
+            0 / 6
+          </div>
+
+        </div>
+
+        <div style="margin-top:25px">
+
+          <div class="small muted">
+            SECRET DRESS CODE
+          </div>
+
+          <div
+            style="
+              margin-top:10px;
+              padding:13px;
+              border:1px solid var(--border);
+              border-radius:8px;
+              background:#181820;
+              color:var(--muted);
+              font-size:12px;
+            "
+          >
+
+            <span>🔒</span>
+
+            <span style="margin-left:8px">
+              Complete all six puzzles to unlock.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================
+       SCREEN 3: REVEAL
+  ====================================== -->
+
+  <section class="screen" id="revealScreen">
+
+    <div class="reveal-title">
+
+      <div class="eyebrow">
+        THE FINAL MYSTERY
+      </div>
+
+      <h1>
+        The Mystery<br>
+        Is Revealed!
+      </h1>
+
+      <p>
+        You collected all six puzzle pieces.
+      </p>
+
+      <p>
+        Look at the completed picture carefully.
+      </p>
+
+    </div>
+
+
+    <div
+      class="reveal-board"
+      id="revealBoard"
+    ></div>
+
+
+    <div class="reveal-question">
+
+      <div class="eyebrow">
+        FINAL MISSION
+      </div>
+
+      <h2>
+        What is the dress code color?
+      </h2>
+
+      <p class="muted small">
+        Look at the completed picture and choose the correct color.
+      </p>
+
+
+      <div
+        class="color-options"
+        id="colorOptions"
+      >
+
+        <button
+          class="color-option"
+          data-color="purple"
+        >
+
+          <span class="color-dot purple"></span>
+
+          Purple
+
+        </button>
+
+        <button
+          class="color-option"
+          data-color="blue"
+        >
+
+          <span class="color-dot blue"></span>
+
+          Blue
+
+        </button>
+
+        <button
+          class="color-option"
+          data-color="green"
+        >
+
+          <span class="color-dot green"></span>
+
+          Green
+
+        </button>
+
+        <button
+          class="color-option"
+          data-color="yellow"
+        >
+
+          <span class="color-dot yellow"></span>
+
+          Yellow
+
+        </button>
+
+      </div>
+
+
+      <div
+        class="final-feedback"
+        id="finalFeedback"
+        role="status"
+        aria-live="polite"
+      ></div>
+
+
+      <button
+        class="btn btn-wide"
+        id="enterFestivalButton"
+        style="display:none;margin-top:18px"
+      >
+
+        ENTER THE FESTIVAL →
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================
+       SCREEN 4: ENDING
+  ====================================== -->
+
+  <section class="screen" id="endingScreen">
+
+    <div class="ending">
+
+      <div class="ending-symbol">
+        ✦
+      </div>
+
+      <div class="eyebrow">
+        MISSION COMPLETED
+      </div>
+
+      <h1>
+        Correct!
+      </h1>
+
+      <p>
+        You discovered the secret dress code.
+      </p>
+
+      <div class="ending-highlight">
+        PURPLE
+      </div>
+
+      <p>
+        You solved all six puzzles
+        and uncovered the mystery.
+      </p>
+
+      <div
+        style="
+          width:100%;
+          height:1px;
+          background:#51445f;
+          margin:25px 0;
+        "
+      ></div>
+
+      <h2>
+        Welcome to the<br>
+        School Festival!
+      </h2>
+
+      <p>
+        The gate is finally open.
+      </p>
+
+      <p style="color:var(--purple)">
+        See you at the festival!
+      </p>
+
+      <div class="btn-row">
+
+        <button
+          class="btn btn-wide"
+          id="restartButton"
+        >
+          PLAY AGAIN
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================
+       FOOTER
+  ====================================== -->
+
+  <footer class="footer">
+
+    <div>
+      MYSTERY INVITATION
+    </div>
+
+    <button id="resetButton">
+      RESET GAME
+    </button>
+
+  </footer>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   1. TARGET EXPRESSIONS
+========================================= */
+
+const expressions = [
+
+  {
+    expression: "in charge of",
+
+    meaning: "담당하다",
+
+    meaningQuestion:
+      "What does 'in charge of' mean?",
+
+    meaningOptions: [
+      "참여하다",
+      "담당하다",
+      "알아내다",
+      "줄이다"
+    ],
+
+    meaningAnswer: 1,
+
+    usageQuestion:
+      "Mina is ______ the English booth at the school festival.",
+
+    usageOptions: [
+      "in charge of",
+      "take part in",
+      "cut down on",
+      "make a difference"
+    ],
+
+    usageAnswer: 0,
+
+    explanation:
+      "in charge of means '담당하다'.",
+
+    usageExplanation:
+      "Mina is responsible for the English booth."
+  },
+
+
+  {
+    expression: "take part in",
+
+    meaning: "참여하다",
+
+    meaningQuestion:
+      "What does 'take part in' mean?",
+
+    meaningOptions: [
+      "담당하다",
+      "줄이다",
+      "참여하다",
+      "작업하다"
+    ],
+
+    meaningAnswer: 2,
+
+    usageQuestion:
+      "Many students will ______ the school festival.",
+
+    usageOptions: [
+      "figure out",
+      "take part in",
+      "cut down on",
+      "in charge of"
+    ],
+
+    usageAnswer: 1,
+
+    explanation:
+      "take part in means '참여하다'.",
+
+    usageExplanation:
+      "Students participate in the school festival."
+  },
+
+
+  {
+    expression: "figure out",
+
+    meaning: "알아내다, 해결하다",
+
+    meaningQuestion:
+      "What does 'figure out' mean?",
+
+    meaningOptions: [
+      "알아내다, 해결하다",
+      "참여하다",
+      "담당하다",
+      "변화를 만들다"
+    ],
+
+    meaningAnswer: 0,
+
+    usageQuestion:
+      "We need to ______ the secret password.",
+
+    usageOptions: [
+      "work on",
+      "make a difference",
+      "figure out",
+      "take part in"
+    ],
+
+    usageAnswer: 2,
+
+    explanation:
+      "figure out means '알아내다 or 해결하다'.",
+
+    usageExplanation:
+      "We need to discover the secret password."
+  },
+
+
+  {
+    expression: "work on",
+
+    meaning: "작업하다, 개선하다",
+
+    meaningQuestion:
+      "What does 'work on' mean?",
+
+    meaningOptions: [
+      "줄이다",
+      "작업하다, 개선하다",
+      "참여하다",
+      "알아내다"
+    ],
+
+    meaningAnswer: 1,
+
+    usageQuestion:
+      "The students will ______ their festival poster.",
+
+    usageOptions: [
+      "work on",
+      "figure out",
+      "make a difference",
+      "cut down on"
+    ],
+
+    usageAnswer: 0,
+
+    explanation:
+      "work on means '작업하다 or 개선하다'.",
+
+    usageExplanation:
+      "The students are working on their poster."
+  },
+
+
+  {
+    expression: "cut down on",
+
+    meaning: "줄이다",
+
+    meaningQuestion:
+      "What does 'cut down on' mean?",
+
+    meaningOptions: [
+      "참여하다",
+      "담당하다",
+      "줄이다",
+      "작업하다"
+    ],
+
+    meaningAnswer: 2,
+
+    usageQuestion:
+      "We should ______ plastic cups at the festival.",
+
+    usageOptions: [
+      "take part in",
+      "cut down on",
+      "figure out",
+      "in charge of"
+    ],
+
+    usageAnswer: 1,
+
+    explanation:
+      "cut down on means '줄이다'.",
+
+    usageExplanation:
+      "We should reduce the number of plastic cups."
+  },
+
+
+  {
+    expression: "make a difference",
+
+    meaning: "변화를 만들다, 도움이 되다",
+
+    meaningQuestion:
+      "What does 'make a difference' mean?",
+
+    meaningOptions: [
+      "알아내다",
+      "작업하다",
+      "줄이다",
+      "변화를 만들다, 도움이 되다"
+    ],
+
+    meaningAnswer: 3,
+
+    usageQuestion:
+      "Helping others can ______ in our school.",
+
+    usageOptions: [
+      "make a difference",
+      "cut down on",
+      "figure out",
+      "in charge of"
+    ],
+
+    usageAnswer: 0,
+
+    explanation:
+      "make a difference means '변화를 만들다 or 도움이 되다'.",
+
+    usageExplanation:
+      "Helping others can create a positive change."
+  }
+
+];
+
+
+/* =========================================
+   2. GAME STATE
+========================================= */
+
+let currentExpression = 0;
+
+let currentPhase = "meaning";
+
+let completedPieces = [];
+
+let answeredCorrectly = false;
+
+let finalColorAnswered = false;
+
+
+/* =========================================
+   3. DOM
+========================================= */
+
+const storyScreen =
+  document.getElementById("storyScreen");
+
+const gameScreen =
+  document.getElementById("gameScreen");
+
+const revealScreen =
+  document.getElementById("revealScreen");
+
+const endingScreen =
+  document.getElementById("endingScreen");
+
+const puzzleBoard =
+  document.getElementById("puzzleBoard");
+
+const revealBoard =
+  document.getElementById("revealBoard");
+
+const progressFill =
+  document.getElementById("progressFill");
+
+const progressCount =
+  document.getElementById("progressCount");
+
+const pieceCount =
+  document.getElementById("pieceCount");
+
+const completedBig =
+  document.getElementById("completedBig");
+
+const quizStep =
+  document.getElementById("quizStep");
+
+const expressionTitle =
+  document.getElementById("expressionTitle");
+
+const expressionDescription =
+  document.getElementById("expressionDescription");
+
+const questionText =
+  document.getElementById("questionText");
+
+const answerOptions =
+  document.getElementById("answerOptions");
+
+const quizFeedback =
+  document.getElementById("quizFeedback");
+
+const nextButton =
+  document.getElementById("nextButton");
+
+const finalFeedback =
+  document.getElementById("finalFeedback");
+
+const enterFestivalButton =
+  document.getElementById("enterFestivalButton");
+
+const headerStatus =
+  document.getElementById("headerStatus");
+
+
+/* =========================================
+   4. SVG PUZZLE ILLUSTRATION
+========================================= */
+
+/*
+  The illustration is divided into six SVG pieces.
+
+  Each piece has a unique viewBox.
+
+  Before all puzzles are completed:
+  grayscale filter is applied.
+
+  After six pieces:
+  the completed illustration becomes colored.
+
+  Dress code:
+  PURPLE
+*/
+
+const puzzleSVG = [
+
+  // Piece 1: Moon and night sky
+
+  `
+  <svg viewBox="0 0 100 100"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <rect width="100" height="100"
+          fill="#191923"/>
+
+    <circle cx="45" cy="35"
+            r="23"
+            fill="#b9a3e8"/>
+
+    <circle cx="55" cy="27"
+            r="22"
+            fill="#191923"/>
+
+    <path d="M0 75 Q30 60 100 75 V100 H0Z"
+          fill="#292634"/>
+
+    <circle cx="20" cy="20"
+            r="2"
+            fill="#e9ddff"/>
+
+    <circle cx="75" cy="45"
+            r="1.5"
+            fill="#e9ddff"/>
+
+  </svg>
+  `,
+
+
+  // Piece 2: School building
+
+  `
+  <svg viewBox="0 0 100 100"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <rect width="100" height="100"
+          fill="#191923"/>
+
+    <path d="M5 40 L50 10 L95 40Z"
+          fill="#5a486f"/>
+
+    <rect x="12" y="40"
+          width="76" height="60"
+          fill="#7d6a9a"/>
+
+    <rect x="40" y="62"
+          width="20" height="38"
+          fill="#30263c"/>
+
+    <rect x="22" y="50"
+          width="12" height="12"
+          fill="#d8c8ef"/>
+
+    <rect x="66" y="50"
+          width="12" height="12"
+          fill="#d8c8ef"/>
+
+    <path d="M12 40 H88"
+          stroke="#bca7df"
+          stroke-width="2"/>
+
+  </svg>
+  `,
+
+
+  // Piece 3: Festival decorations
+
+  `
+  <svg viewBox="0 0 100 100"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <rect width="100" height="100"
+          fill="#191923"/>
+
+    <path d="M0 15 Q50 55 100 15"
+          fill="none"
+          stroke="#b5a2d7"
+          stroke-width="2"/>
+
+    <path d="M15 25 L10 45 L20 45Z"
+          fill="#8e7baa"/>
+
+    <path d="M35 35 L30 55 L40 55Z"
+          fill="#c0addf"/>
+
+    <path d="M55 35 L50 55 L60 55Z"
+          fill="#8e7baa"/>
+
+    <path d="M75 25 L70 45 L80 45Z"
+          fill="#c0addf"/>
+
+    <circle cx="20" cy="70"
+            r="12"
+            fill="#9a85bc"/>
+
+    <circle cx="80" cy="70"
+            r="12"
+            fill="#9a85bc"/>
+
+    <path d="M20 82 L25 100"
+          stroke="#b9a3e8"
+          stroke-width="2"/>
+
+    <path d="M80 82 L75 100"
+          stroke="#b9a3e8"
+          stroke-width="2"/>
+
+  </svg>
+  `,
+
+
+  // Piece 4: Festival booth
+
+  `
+  <svg viewBox="0 0 100 100"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <rect width="100" height="100"
+          fill="#191923"/>
+
+    <rect x="10" y="42"
+          width="80" height="58"
+          fill="#706184"/>
+
+    <path d="M5 42 L20 15 H80 L95 42Z"
+          fill="#b9a3e8"/>
+
+    <path d="M20 15 L35 42 H50 L45 15Z"
+          fill="#4d405f"/>
+
+    <path d="M45 15 L50 42 H65 L60 15Z"
+          fill="#d8c8ef"/>
+
+    <rect x="30" y="58"
+          width="40" height="25"
+          fill="#30263c"/>
+
+    <path d="M10 42 H90"
+          stroke="#e5d9f7"
+          stroke-width="2"/>
+
+  </svg>
+  `,
+
+
+  // Piece 5: Festival clothing
+
+  `
+  <svg viewBox="0 0 100 100"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <rect width="100" height="100"
+          fill="#191923"/>
+
+    <circle cx="50" cy="22"
+            r="14"
+            fill="#d5c6e8"/>
+
+    <path d="M35 40
+             L20 55
+             L30 65
+             L38 58
+             L38 100
+             H62
+             V58
+             L70 65
+             L80 55
+             L65 40
+             Z"
+          fill="#9b84bd"/>
+
+    <path d="M38 58 H62"
+          stroke="#d8c8ef"
+          stroke-width="2"/>
+
+    <path d="M38 100 L32 100"
+          stroke="#d8c8ef"
+          stroke-width="3"/>
+
+    <path d="M62 100 L68 100"
+          stroke="#d8c8ef"
+          stroke-width="3"/>
+
+  </svg>
+  `,
+
+
+  // Piece 6: Festival gate
+
+  `
+  <svg viewBox="0 0 100 100"
+       xmlns="http://www.w3.org/2000/svg">
+
+    <rect width="100" height="100"
+          fill="#191923"/>
+
+    <rect x="10" y="30"
+          width="15" height="70"
+          fill="#6d5a87"/>
+
+    <rect x="75" y="30"
+          width="15" height="70"
+          fill="#6d5a87"/>
+
+    <path d="M10 30
+             Q50 -5 90 30"
+          fill="none"
+          stroke="#c1ade5"
+          stroke-width="8"/>
+
+    <path d="M25 100 V50
+             Q50 20 75 50
+             V100"
+          fill="none"
+          stroke="#a48dc9"
+          stroke-width="5"/>
+
+    <circle cx="50" cy="35"
+            r="8"
+            fill="#e3d5f4"/>
+
+    <path d="M50 45 V100"
+          stroke="#c4b0e2"
+          stroke-width="2"/>
+
+  </svg>
+  `
+
+];
+
+
+/* =========================================
+   5. SCREEN NAVIGATION
+========================================= */
+
+function showScreen(screen) {
+
+  document.querySelectorAll(".screen")
+    .forEach(item => {
+      item.classList.remove("active");
+    });
+
+  screen.classList.add("active");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================================
+   6. CREATE PUZZLE PIECES
+========================================= */
+
+function createPuzzlePiece(index, colored = false) {
+
+  const piece =
+    document.createElement("div");
+
+  piece.className = "puzzle-piece";
+
+  piece.dataset.index = index;
+
+  if (completedPieces.includes(index)) {
+    piece.classList.add("completed");
+  }
+
+  if (colored) {
+    piece.classList.add("colored");
+  }
+
+  piece.innerHTML = `
+
+    ${puzzleSVG[index]}
+
+    <div class="piece-lock">
+
+      ${completedPieces.includes(index) ? "" : "🔒"}
+
+    </div>
+
+  `;
+
+  return piece;
+
+}
+
+
+/* =========================================
+   7. RENDER PUZZLE BOARD
+========================================= */
+
+function renderPuzzleBoard() {
+
+  puzzleBoard.innerHTML = "";
+
+  for (let i = 0; i < 6; i++) {
+
+    const piece =
+      createPuzzlePiece(i, false);
+
+    puzzleBoard.appendChild(piece);
+
+  }
+
+  updateProgress();
+
+}
+
+
+/* =========================================
+   8. UPDATE PROGRESS
+========================================= */
+
+function updateProgress() {
+
+  const count =
+    completedPieces.length;
+
+  const percent =
+    (count / 6) * 100;
+
+  progressFill.style.width =
+    percent + "%";
+
+  progressCount.textContent =
+    `${count} / 6`;
+
+  pieceCount.textContent =
+    count;
+
+  completedBig.textContent =
+    `${count} / 6`;
+
+}
+
+
+/* =========================================
+   9. LOAD EXPRESSION
+========================================= */
+
+function loadExpression() {
+
+  const data =
+    expressions[currentExpression];
+
+  currentPhase = "meaning";
+
+  answeredCorrectly = false;
+
+  quizStep.textContent =
+    `PUZZLE ${currentExpression + 1} / 6`;
+
+  expressionTitle.textContent =
+    data.expression;
+
+  expressionDescription.textContent =
+    "Learn the meaning of the expression.";
+
+  questionText.textContent =
+    data.meaningQuestion;
+
+  nextButton.disabled = true;
+
+  nextButton.textContent =
+    "CONTINUE";
+
+  quizFeedback.className =
+    "feedback";
+
+  quizFeedback.textContent =
+    "";
+
+  renderOptions(
+    data.meaningOptions,
+    data.meaningAnswer,
+    data.explanation
+  );
+
+}
+
+
+/* =========================================
+   10. RENDER QUIZ OPTIONS
+========================================= */
+
+function renderOptions(
+  options,
+  correctIndex,
+  explanation
+) {
+
+  answerOptions.innerHTML = "";
+
+  options.forEach((option, index) => {
+
+    const button =
+      document.createElement("button");
+
+    button.className = "option";
+
+    button.textContent =
+      option;
+
+    button.addEventListener("click", () => {
+
+      handleAnswer(
+        button,
+        index,
+        correctIndex,
+        explanation
+      );
+
+    });
+
+    answerOptions.appendChild(button);
+
+  });
+
+}
+
+
+/* =========================================
+   11. HANDLE ANSWER
+========================================= */
+
+function handleAnswer(
+  selectedButton,
+  selectedIndex,
+  correctIndex,
+  explanation
+) {
+
+  if (answeredCorrectly) {
+    return;
+  }
+
+  const buttons =
+    answerOptions.querySelectorAll(".option");
+
+  buttons.forEach(button => {
+    button.disabled = true;
+  });
+
+  quizFeedback.className =
+    "feedback show";
+
+  if (selectedIndex === correctIndex) {
+
+    answeredCorrectly = true;
+
+    selectedButton.classList.add("correct");
+
+    quizFeedback.classList.add("success");
+
+    quizFeedback.innerHTML = `
+      <strong>Correct!</strong><br>
+      ${explanation}
+    `;
+
+    nextButton.disabled = false;
+
+  } else {
+
+    selectedButton.classList.add("wrong");
+
+    quizFeedback.classList.add("error");
+
+    quizFeedback.innerHTML = `
+      <strong>Not quite!</strong><br>
+      Try again. Look carefully at the meaning.
+    `;
+
+    /*
+      Wrong answers do not unlock
+      the next stage.
+
+      Re-enable the choices.
+    */
+
+    setTimeout(() => {
+
+      buttons.forEach(button => {
+        button.disabled = false;
+        button.classList.remove("wrong");
+      });
+
+      quizFeedback.className =
+        "feedback";
+
+      quizFeedback.textContent =
+        "";
+
+    }, 1000);
+
+  }
+
+}
+
+
+/* =========================================
+   12. NEXT QUIZ STAGE
+========================================= */
+
+nextButton.addEventListener("click", () => {
+
+  if (!answeredCorrectly) {
+    return;
+  }
+
+  const data =
+    expressions[currentExpression];
+
+  if (currentPhase === "meaning") {
+
+    currentPhase = "usage";
+
+    answeredCorrectly = false;
+
+    quizStep.textContent =
+      `PUZZLE ${currentExpression + 1} / 6`;
+
+    expressionDescription.textContent =
+      "Use the expression in context.";
+
+    questionText.textContent =
+      data.usageQuestion;
+
+    nextButton.disabled = true;
+
+    nextButton.textContent =
+      "UNLOCK PUZZLE PIECE";
+
+    quizFeedback.className =
+      "feedback";
+
+    quizFeedback.textContent =
+      "";
+
+    renderOptions(
+      data.usageOptions,
+      data.usageAnswer,
+      data.usageExplanation
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Both meaning and usage
+    questions are completed.
+
+    Unlock one puzzle piece.
+  */
+
+  completedPieces.push(
+    currentExpression
+  );
+
+  renderPuzzleBoard();
+
+  currentExpression++;
+
+  if (currentExpression >= 6) {
+
+    /*
+      All six expressions completed.
+
+      Show the fully colored illustration.
+    */
+
+    showRevealScreen();
+
+  } else {
+
+    loadExpression();
+
+  }
+
+});
+
+
+/* =========================================
+   13. FINAL COLOR REVEAL
+========================================= */
+
+function showRevealScreen() {
+
+  showScreen(revealScreen);
+
+  headerStatus.textContent =
+    "FINAL MISSION";
+
+  revealBoard.innerHTML = "";
+
+  /*
+    Every piece is now colored.
+
+    The picture is only revealed after
+    all six expression puzzles.
+  */
+
+  for (let i = 0; i < 6; i++) {
+
+    const piece =
+      createPuzzlePiece(i, true);
+
+    piece.classList.add("completed");
+    piece.classList.add("colored");
+
+    revealBoard.appendChild(piece);
+
+  }
+
+  finalFeedback.className =
+    "final-feedback";
+
+  finalFeedback.textContent =
+    "";
+
+  enterFestivalButton.style.display =
+    "none";
+
+  finalColorAnswered = false;
+
+  document.querySelectorAll(".color-option")
+    .forEach(button => {
+
+      button.disabled = false;
+
+      button.classList.remove(
+        "correct",
+        "wrong"
+      );
+
+    });
+
+}
+
+
+/* =========================================
+   14. COLOR ANSWER
+========================================= */
+
+document.querySelectorAll(".color-option")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      if (finalColorAnswered) {
+        return;
+      }
+
+      const selectedColor =
+        button.dataset.color;
+
+      /*
+        The secret dress code is PURPLE.
+      */
+
+      if (selectedColor === "purple") {
+
+        finalColorAnswered = true;
+
+        button.classList.add("correct");
+
+        finalFeedback.className =
+          "final-feedback show success";
+
+        finalFeedback.innerHTML = `
+
+          <strong>Correct!</strong><br>
+
+          The dress code is PURPLE.<br>
+
+          You discovered the secret color!
+
+        `;
+
+        document.querySelectorAll(".color-option")
+          .forEach(item => {
+
+            item.disabled = true;
+
+          });
+
+        enterFestivalButton.style.display =
+          "block";
+
+      } else {
+
+        button.classList.add("wrong");
+
+        finalFeedback.className =
+          "final-feedback show error";
+
+        finalFeedback.innerHTML = `
+
+          <strong>Not quite!</strong><br>
+
+          Look at the completed picture carefully.
+
+        `;
+
+        setTimeout(() => {
+
+          button.classList.remove("wrong");
+
+        }, 700);
+
+      }
+
+    });
+
+  });
+
+
+/* =========================================
+   15. ENTER FESTIVAL
+========================================= */
+
+enterFestivalButton.addEventListener("click", () => {
+
+  showScreen(endingScreen);
+
+  headerStatus.textContent =
+    "MISSION COMPLETED";
+
+});
+
+
+/* =========================================
+   16. START GAME
+========================================= */
+
+document.getElementById("startButton")
+  .addEventListener("click", () => {
+
+    currentExpression = 0;
+
+    currentPhase = "meaning";
+
+    completedPieces = [];
+
+    answeredCorrectly = false;
+
+    finalColorAnswered = false;
+
+    headerStatus.textContent =
+      "MISSION 01";
+
+    renderPuzzleBoard();
+
+    loadExpression();
+
+    showScreen(gameScreen);
+
+  });
+
+
+/* =========================================
+   17. RESTART
+========================================= */
+
+function resetGame() {
+
+  currentExpression = 0;
+
+  currentPhase = "meaning";
+
+  completedPieces = [];
+
+  answeredCorrectly = false;
+
+  finalColorAnswered = false;
+
+  headerStatus.textContent =
+    "MISSION 01";
+
+  progressFill.style.width =
+    "0%";
+
+  renderPuzzleBoard();
+
+  loadExpression();
+
+  showScreen(storyScreen);
+
+}
+
+
+/* =========================================
+   18. RESTART BUTTONS
+========================================= */
+
+document.getElementById("restartButton")
+  .addEventListener("click", resetGame);
+
+document.getElementById("resetButton")
+  .addEventListener("click", resetGame);
+
+
+/* =========================================
+   19. INITIALIZE
+========================================= */
+
+renderPuzzleBoard();
+
+headerStatus.textContent =
+  "MISSION 01";
+
+</script>
+
+</body>
+</html>
